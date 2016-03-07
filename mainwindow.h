@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <highlighter.h>
+#include <QTextEdit>
 namespace Ui {
 class MainWindow;
 }
@@ -16,6 +17,8 @@ public:
     ~MainWindow();
 private slots:
 
+    void on_textEdit_install_highlighter();
+
     void on_M_Quit_triggered();
     void on_M_OpenFile_triggered();
     void on_M_SaveAsFile_triggered();
@@ -25,7 +28,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
+    QTextEdit *editor;
+    Highlighter *highlighter;
     QString fileName;
 };
 

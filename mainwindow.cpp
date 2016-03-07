@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setCentralWidget(ui->textEdit);
+    on_textEdit_install_highlighter();
+    setWindowTitle(tr("NotepadOne"));
     ui->statusBar->showMessage("Готово к работе!");
 }
 
@@ -77,10 +79,24 @@ void MainWindow::on_M_SaveAsFile_triggered()
         }
 }
 
-
-
 void MainWindow::on_textEdit_textChanged()
 {
     QString text = ui->textEdit->toPlainText();
     ui->statusBar->showMessage(QString("Total characters: %1").arg(text.length()));
 }
+
+void MainWindow::on_textEdit_install_highlighter()
+ {
+     QFont font;
+     font.setFamily("Courier");
+     font.setFixedPitch(true);
+     font.setPointSize(10);
+
+     ui->textEdit->setFont(font);
+
+     highlighter = new Highlighter(ui->textEdit->document());
+
+     QFile file("mainwindow.h");
+     if (file.open(QFile::ReadOnly | QFile::Text))
+         ui->textEdit->setPlainText(file.readAll());
+ }
